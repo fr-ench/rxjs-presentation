@@ -1,0 +1,31 @@
+blockquote, .blockquote {
+  font-weight: 400;
+
+  &:before {
+    content: '\00ab';
+    color: var(--yellow);
+  }
+  &:after {
+    content: '\00bb';
+    color: var(--yellow);
+  }
+}
+
+
+.blockquote--spaced {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.highlight {
+  &--bright {
+    color: var(--yellow);
+    text-shadow: 0px 1px 5px rgba(0,0,0,0.5)
+  }
+  &--inverse {
+    color: var(--black);
+  }
+  &--size {
+    font-size: 1.5em;
+  }
+}

@@ -1,0 +1,38 @@
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+
+  th {
+    font-weight: 400;
+  }
+
+  td, th {
+    padding: 20px;
+    color: var(--black);
+  }
+
+  &--fixed {
+    table-layout: fixed;
+  }
+
+  &--text-center {
+    text-align: center;
+  }
+
+  &--bordered {
+    td, th {
+      border: 4px dashed;
+    }
+  }
+  &--bright {
+    td, th {
+      border-color: var(--yellow);
+    }
+  }
+  &--inverse {
+    td, th {
+      border-color: var(--black);
+    }
+  }
+}

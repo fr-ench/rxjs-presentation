@@ -1,0 +1,89 @@
+@keyframes delivery {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  4% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  24% {
+    transform: translate(320%, 0);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(480%, -150%);
+    opacity: 1;
+  }
+  44% {
+    transform: translate(480%, -150%);
+    opacity: 0;
+  }
+  48% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  52% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  72% {
+    transform: translate(210%, 0);
+    opacity: 1;
+  }
+  92% {
+    transform: translate(380%, 300%);
+    opacity: 1;
+  }
+  96% {
+    transform: translate(380%, 300%);
+    opacity: 0;
+  }
+  98% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes happytilting {
+  40% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes wolftilting {
+  82% {
+    transform: rotate(0deg);
+  }
+  92% {
+    transform: rotate(-2deg) translateY(5px);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.content-promises {
+  &__img {
+    &--pie {
+      animation: delivery 6s infinite linear;
+    }
+    &--grandma {
+      animation: happytilting 6s infinite linear;
+    }
+    &--wolf {
+      animation: wolftilting 6s infinite linear;
+    }
+  }
+}
+

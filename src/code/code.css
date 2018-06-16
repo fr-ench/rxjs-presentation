@@ -1,0 +1,58 @@
+pre, .code {
+  display: block;
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--black);
+  padding: 0.5em 1em;
+  counter-reset: code;
+  font-size: 1.5rem;
+  line-height: 1.25em;
+  padding-top: 1em;
+  white-space: initial;
+  font-family: monospace;
+  margin: 0;
+
+  &:not(.code--counterless) {
+    padding-left: 0.5em;
+    & code,
+    &.code__item {
+      counter-increment: code;
+
+      &:before {
+        content: counter(code)". ";
+        color: var(--yellow);
+        padding-left: 0.5em;
+      }
+    }
+  }
+
+  & code,
+  & .code__item {
+    padding: 0.5em 0;
+    &.hljs {
+      padding: 0.5em 0;
+    }
+  }
+}
+
+.code {
+  &--smaller {
+    font-size: 1.25rem;
+  }
+}
+
+code, .code__item {
+  display: block;
+  font-family: 'Roboto Mono', monospace;
+  white-space: pre;
+  padding-left: 0.5em;
+
+  &.hljs {
+    background: transparent;
+  }
+
+  &.marked {
+    background: rgba(255, 255, 255, 0.4);
+  }
+}
+
+

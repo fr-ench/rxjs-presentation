@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RxJS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700|Roboto+Mono:400,700&amp;subset=cyrillic" rel="stylesheet">
+    <style>
+      .slides {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: 100vh;
+      }
+      .slides-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(110deg, var(--gradientLeft, #00c4ff), var(--gradientRight, #6d47d9));
+        transform: translateZ(0);
+      }
+    </style>
+  </head>
+<body>
+  <main>
+  <section class="slides">
+
+    <article class="content-front slides__item js-slide">
+      <div class="slides__main grid grid--y-center grid--col-1 grid--text-center">
+
+        <h1 class="grid__item highlight highlight--bright  title title--xl">FrontDay</h1>
+
+        <figure class="grid grid--col-1">
+          <figcaption class="grid__item highlight highlight--bright title title--xl">
+            Мария Гришкевич
+          </figcaption>
+
+          <img
+            class="grid__item graphic content-front__me"
+            src="dist/assets/me.jpg"
+            alt="fr_ench" />
+        </figure>
+
+        <h2 class="grid__item title title--xxl">
+          Особенности RxJS. <br/> Или как не спотыкаться о подводные камни.
+        </h2>
+
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Что такое RxJS? <br/> Немного об основах.</h3>
+      <div class="grid grid--y-center grid--col-1">
+
+        <h4 class="grid__item title title--l">
+          <span class="highlight highlight--size highlight--inverse">RxJS</span> - библиотека
+        </h3>
+
+        <ul class="grid__item">
+          <li class="js-slide-step">использующая функциональную и реактивную парадигмы;</li>
+          <li class="js-slide-step">предназначенная для работы с асинхронными данными;</li>
+          <li class="js-slide-step">оперирующая потоками.</li>
+        </ul>
+
+        <h3 class="grid__item highlight highlight--inverse js-slide-step">
+          <span class="highlight highlight--size">Поток</span>
+          (<span class="highlight highlight--bright">stream</span>) - </h3>
+
+        <blockquote class="grid__item blockquote blockquote--spaced js-slide-step">не что иное, как последовательность событий во времени</blockquote>
+      </div>
+    </article>
+
+    <article class="content-definition slides__item js-slide">
+      <h3 class="title title--xl">Потоки</h3>
+      <div class="grid grid--text-center grid--y-center grid--col-1">
+        <p class="grid__item title title--l js-slide-step">Так как про определение потока как <span class="highlight highlight--bright">последовательности событий во времени</span> можно и так прочитать в любой статье, посвященной RxJS, данная презентация расскажет о потоках на примере:</p>
+
+        <figure class="grid grid--x-center js-slide-step">
+          <figcaption class="grid__item highlight highlight--inverse">Красной Шапочки</figcaption>
+          <img alt="Красная шапочка" class="graphic content-definition__text-img content-definition__text-img--ridinghood" src="dist/assets/red-ridinghood.png" />
+        </figure>
+
+        <figure class="grid grid--x-center js-slide-step">
+          <figcaption class="grid__item highlight highlight--inverse">и пирожков</figcaption>
+          <span>
+            <img alt="Пирожок" style="--height:10" class="graphic content-definition__text-img content-definition__text-img--pie" src="dist/assets/pie.png" />
+            <img alt="Пирожок" style="--height:20" class="graphic content-definition__text-img content-definition__text-img--pie-2" src="dist/assets/pie.png" />
+            <img alt="Пирожок" style="--height:20" class="graphic content-definition__text-img content-definition__text-img--pie-3" src="dist/assets/pie.png" />
+          </span>
+        </figure>
+      </div>
+    </article>
+
+    <article class="content-promises slides__item js-slide">
+      <h3 class="title title--xl">Красная Шапочка и служба промисов</h3>
+      <div class="grid grid--y-center">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Красная шапочка решает использовать <span class="highlight highlight--bright">промисы</span>, чтобы отправить бабушке пирожок.
+        </p>
+
+        <div class="grid__item grid__item--colspan-8 grid__item--colstart-3 grid grid--col-24 grid--row-5">
+          <img
+            class="grid__item grid__item--y-center grid__item--colspan-3 grid__item--colstart-1 grid__item--rowspan-5
+              graphic content-promises__img"
+            alt="Красная шапочка"
+            src="dist/assets/red-ridinghood.png" />
+          <img
+            class="grid__item grid__item--y-center grid__item--colspan-3 grid__item--rowspan-5 grid__item--colstart-4
+              graphic content-promises__img content-promises__img--pie"
+            alt="Пирожок"
+            src="dist/assets/pie.png" />
+          <img
+            class="grid__item grid__item--y-center grid__item--colspan-4 grid__item--rowspan-2 grid__item--colstart-18 grid__item--rowstart-1
+              graphic content-promises__img content-promises__img--grandma js-slide-step"
+            alt="Бабушка"
+            src="dist/assets/grandma.png" />
+          <img
+            class="grid__item grid__item--y-center grid__item--colspan-8 grid__item--rowspan-2 grid__item--colstart-16 grid__item--rowstart-4
+              graphic content-promises__img content-promises__img--wolf js-slide-step"
+            alt="Волк"
+            src="dist/assets/wolf.png" />
+        </div>
+
+        <pre class="grid__item grid__item--colspan-8 grid__item--colstart-3 js-slide-step">
+          <code>sendPie()</code>
+          <code>  .then(grandmaEatsPie)</code>
+          <code>  .catch(pieIsEatenByWolf);</code>
+        </pre>
+      </div>
+    </article>
+
+    <article class="content-reality slides__item js-slide">
+      <h3 class="title title--xl">Красная Шапочка и суровая реальность</h3>
+      <div class="grid grid--stretch grid--row-2">
+        <p class="grid__item grid__item--colspan-7 title title--l">
+          <span class="highlight highlight--inverse">На самом деле</span> задача отправки пирожков немного сложнее:
+        </p>
+
+        <div class="grid__item grid__item--colspan-3">
+          <img
+            class="content-reality__img content-reality__img--pie graphic graphic--absolute"
+            style="--colspan:1"
+            alt="Пирожок"
+            src="dist/assets/pie.png" />
+        </div>
+
+        <div class="grid__item grid__item--colspan-2">
+          <img
+            class="content-reality__img content-reality__img--pie-2 graphic graphic--absolute"
+            style="--colspan:1"
+            alt="Пирожок"
+            src="dist/assets/pie.png" />
+        </div>
+
+        <ul class="grid__item grid__item--colspan-7 list">
+          <li class="js-slide-step">Отправлять пирожки бабуле нужно по её звонку;</li>
+          <li class="js-slide-step">Выпекание пирожка требует времени (разного, в зависимости от настроения и навыков Красной Шапочки);</li>
+          <li class="js-slide-step">Выпекать надо, когда есть запрос (все хотят свеженький пирожочек!);</li>
+          <li class="js-slide-step">Отправленный пирожок может добраться до бабули, а может быть нагло съеден волком.</li>
+        </ul>
+
+        <pre class="grid__item grid__item--colspan-5 js-slide-step">
+          <code>phone.addEventListener(</code>
+          <code>  'callFromGrandma',</code>
+          <code>  ( ) =></code>
+          <code>    bakePie()</code>
+          <code>      .then(sendPie)</code>
+          <code>      .then(grandmaGetsPie)</code>
+          <code>      .catch(eatenByWolf),</code>
+          <code>);</code>
+        </pre>
+      </div>
+    </article>
+
+    <article class="content-problems slides__item js-slide">
+      <h3 class="title title--xl">Красная шапочка и еще более суровая реальность</h3>
+      <div class="grid grid--stretch grid--row-2">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          <span class="highlight highlight--bright">Проблемы данного кода:</span>
+          <img
+            class="content-problems__img content-problems__img--pie graphic"
+            style="--colspan:1"
+            alt="Пирожок"
+            src="dist/assets/pie.png" />
+        </p>
+
+        <ul class="grid__item grid__item--colspan-7 list">
+          <li class="js-slide-step">Бабушка может звонить несколько раз подряд;</li>
+          <li class="js-slide-step">Пирожок нельзя переслать, если он попал к волку;</li>
+          <li class="js-slide-step">Пирожки выпекаются и отправляются по отдельности;</li>
+          <li class="js-slide-step">Порядок отправки и выпекания пирожков случаен;</li>
+          <li class="js-slide-step">Если пирожки не случились - надо заказать суши; </li>
+        </ul>
+
+        <pre class="grid__item  grid__item--colspan-5">
+            <code>phone.addEventListener(</code>
+            <code> 'callFromGrandma',</code>
+            <code> () =></code>
+            <code>   bakePie()</code>
+            <code>     .then(sendPie)</code>
+            <code>     .then(grandmaGetsPie)</code>
+            <code>     .catch(eatenByWolf),</code>
+            <code>);</code>
+        </pre>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Красная Шапочка задумывается об отправке пирожков как о потоке.</h3>
+      <div class="grid grid--col-24 grid--row-2 grid--stretch">
+        <h4 class="grid__item grid__item--colspan-24 highlight highlight--inverse title title--l">
+          RxJS Stream в мире Красной Шапочки и пирожков:
+        </h4>
+
+        <div data-step-order="3" class="js-slide-step grid__item grid__item--colspan-5 grid__item--text-center grid grid--stretch grid--row-2 grid--col-1">
+          <p class="grid__item">Бабушка звонит внучке</p>
+
+          <figure class="grid__item grid grid--col-6">
+            <img class="grid__item grid__item--colspan-4 grid__item--colstart-2 graphic graphic--reflect-x"
+              alt="Бабушка"
+              src="dist/assets/grandma.png" />
+            <figcaption class="js-slide-step grid__item grid__item--colspan-6 highlight highlight--inverse">Producer <br/>
+              <span class="highlight highlight--bright">(Observable)</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div data-step-order="1" class="js-slide-step arrow arrow--primary arrow--right grid__item grid__item--colspan-3 grid__item--y-center">
+        </div>
+
+        <div data-step-order="4" class="js-slide-step grid__item grid__item--colspan-6 grid__item--text-center grid grid--stretch grid--row-2 grid--col-1">
+          <p class="grid__item">Выпекание и отправка пирожков</p>
+
+          <figure class="grid__item grid grid--col-6 grid--y-center">
+            <img class="grid__item grid__item--colspan-3 graphic graphic--scale-s"
+              alt="Пирожок"
+              src="dist/assets/pie.png" />
+            <img class="grid__item grid__item--colspan-3 graphic"
+              alt="Пирожок"
+              src="dist/assets/pie.png" />
+            <figcaption class="js-slide-step grid__item grid__item--colspan-6 highlight highlight--inverse">
+              Data Pipeline <br/>
+              <span class="highlight highlight--bright">(Observable Operators)</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div data-step-order="2" class="js-slide-step arrow arrow--primary arrow--right grid__item grid__item--colspan-3 grid__item--y-center">
+        </div>
+
+        <div data-step-order="5" class="js-slide-step grid__item grid__item--colspan-5 grid__item--text-center grid grid--stretch grid--row-2 grid--col-1">
+          <p class="grid__item">Бабушка кушает пирожок</p>
+
+          <figure class="grid__item grid grid--col-6">
+            <img class="grid__item grid__item--colspan-4 grid__item--colstart-2 graphic"
+              alt="Бабушка"
+              src="dist/assets/grandma.png" />
+            <figcaption class="js-slide-step grid__item grid__item--colspan-6 highlight highlight--inverse">
+              Consumer
+              <span class="highlight highlight--bright">(Observer)</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <figure data-step-order="0" class="js-slide-step grid__item grid__item--colspan-2 grid__item--text-center grid grid--col-1 grid--y-center">
+          <img class="graphic grid__item"
+            alt="Часы"
+            src="dist/assets/clock.png" />
+          <figcaption class="grid__item highlight highlight--inverse">Time</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="slides__item content-new-definition js-slide">
+      <h3 class="title title--xl">Красная шапочка наконец понимает, что такое Observable</h3>
+      <div class="grid grid--y-center grid--text-center">
+        <blockquote class="grid__item grid__item--colspan-10 grid__item--colstart-2 title title--l">Абстрактный иммутабельный тип данных, представляющий собой реализацию монады IO (ввод-вывод), и позволяющий работать с <span class="js-slide-step" data-step-class="crossed">потоком событий во времени</span> <span data-step-class="show" class="js-slide-step hide highlight highlight--bright">отправкой пирожков</span> в декларативном стиле</blockquote>
+        <div class="grid__item grid__item--colspan-12">
+          <img class="content-new-definition__text-img content-new-definition__text-img--pie graphic" src="dist/assets/pie.png" alt="Чебурек">
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Красная шапочка категоризирует данные</h3>
+      <div class="grid grid--col-1">
+        <p class="grid__item title title--l">Типы исходных данных определяют способ создания Observable-ов.</p>
+        <table data-step-order="0" class="js-slide-step grid__item data-table data-table--fixed data-table--text-center data-table--bordered data-table--bright">
+          <tr>
+            <th class="data-table__item">Время/количество</th>
+            <th data-step-order="1" class="js-slide-step data-table__item">Единичное значение</th>
+            <th data-step-order="2" class="js-slide-step data-table__item">Множество значений</th>
+          </tr>
+          <tr>
+            <td data-step-order="3" class="js-slide-step data-table__item">Синхронные</td>
+            <td class="data-table__item">
+              <div class="grid grid--col-1">
+                <p data-step-order="5" class="js-slide-step grid__item">Character, number</p>
+                <code data-step-order="9" class="js-slide-step grid__item">of</code>
+              </div>
+            </td>
+            <td class="data-table__item">
+              <div class="grid grid--col-1">
+                <p data-step-order="6" class="js-slide-step grid__item">String, array</p>
+                <code data-step-order="10" class="js-slide-step grid__item">from</code>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-step-order="4" class="js-slide-step data-table__item">Асинхронные</td>
+            <td class="data-table__item">
+              <div data-step-order="7" class="js-slide-step grid grid--col-12 grid--columngap-s">
+                <img
+                  class="graphic grid__item grid__item--colspan-3 grid__item--y-center"
+                  alt="Пирожок"
+                  src="dist/assets/pie.png" />
+                <div class="grid__item grid__item--colspan-9 grid__item--y-center grid grid--col-1">
+                  <p class="grid__item">Promise</p>
+                  <code data-step-order="11" class="js-slide-step grid__item">fromPromise</code>
+                </div>
+              </div>
+            </td>
+            <td class="data-table__item">
+              <div data-step-order="8" class="js-slide-step grid grid--col-12 grid--columngap-s">
+                <img
+                  class="graphic graphic--scale-s grid__item grid__item--colspan-2 grid__item--y-center"
+                  alt="Красная шапочка"
+                  src="dist/assets/red-ridinghood.png" />
+                <div class="grid__item grid__item--colspan-10 grid__item--y-center grid grid--col-1">
+                  <p class="grid__item">Emitters</p>
+                  <code data-step-order="12" class="js-slide-step grid__item">fromEvent</code>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <p class="js-slide-step grid__item">Также существуют различные способы создавать Observable-ы вручную.</p>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Красная шапочка классификацирует Observable</h3>
+      <div class="grid">
+        <div class="grid__item grid__item--colspan-1 grid__item--colstart-5 arrow arrow--primary arrow--bottom-left"></div>
+        <div class="grid__item grid__item--colspan-1 grid__item--colstart-8 arrow arrow--primary arrow--bottom-right"></div>
+        <div class="grid__item grid__item--colspan-6 grid grid--col-1 grid--y-start">
+          <h4 data-step-order="0" class="js-slide-step grid__item grid__item--text-center highlight highlight--inverse">
+            Холодные <span class="highlight highlight--bright">(Cold)</span>
+          </h4>
+          <p data-step-order="2" class="js-slide-step grid__item">Не отдают значений, пока на них нет подписки, т.к. по-настоящему ленивы.</p>
+          <p data-step-order="4" class="js-slide-step grid__item">Каждая подписка создает незавимый поток, который отдает все события с начала (у всех подписок одинаковый набор событий).</p>
+          <div class="js-slide-step grid__item grid grid--col-6">
+            <pre class="grid__item grid__item--colspan-3 code code--counterless">
+              <code>of(...)</code>
+            </pre>
+            <pre class="grid__item grid__item--colspan-3 code code--counterless">
+              <code>from(...)</code>
+            </pre>
+            <pre class="grid__item grid__item--colspan-3 code code--counterless">
+              <code>timer(...)</code>
+            </pre>
+            <pre class="grid__item grid__item--colspan-3 code code--counterless">
+              <code>inverval(...)</code>
+            </pre>
+          </div>
+        </div>
+        <div class="grid__item grid__item--colspan-6 grid grid--col-1 grid--y-start">
+          <h4 data-step-order="1" class="js-slide-step grid__item grid__item--text-center highlight highlight--inverse">
+            Горячие <span class="highlight highlight--bright">(Hot)</span>
+          </h4>
+          <p data-step-order="3" class="js-slide-step grid__item">Полученные подписчиками события зависят от времени подписки.</p>
+          <p data-step-order="5" class="js-slide-step grid__item">События, происходящие, когда подписки нет, игнорируются. Всем подписчикам отдается одно и то же событие.</p>
+          <div class="js-slide-step grid__item grid grid--col-6">
+            <pre class="grid__item grid__item--colspan-3 code code--counterless">
+              <code>fromPromise(...)</code>
+            </pre>
+            <pre class="grid__item grid__item--colspan-3 code code--counterless">
+              <code>fromEvent(...)</code>
+            </pre>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Hot vs Cold</h3>
+      <div class="grid grid--stretch grid--row-2">
+        <h4 class="grid__item grid__item--colspan-8 grid__item--rowstart-1 highlight highlight--inverse">Cold.</h4>
+        <pre class="grid__item grid__item--colspan-8 code">
+          <code>const A = interval(5);</code>
+          <code></code>
+          <code>A.pipe(take(2)).subscribe(console.log);</code>
+          <code></code>
+          <code>setTimeout(() => {</code>
+          <code>  console.log('timeout');</code>
+          <code>  A.pipe(take(2)).subscribe(console.log);</code>
+          <code>}, 1500);</code>
+        </pre>
+        <h4 class="grid__item grid__item--colspan-4 grid__item--rowstart-1 highlight highlight--inverse">Консоль.</h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">0</span>
+            <span class="code__item">1</span>
+          </div>
+          <div class="js-slide-step">
+            <span class="code__item">timeout</span>
+            <span class="code__item">0</span>
+            <span class="code__item">1</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Hot vs Cold</h3>
+      <div class="grid grid--stretch grid--row-2">
+        <h4 class="grid__item grid__item--colspan-8 grid__item--rowstart-1 highlight highlight--inverse">Hot.</h4>
+        <pre class="grid__item grid__item--colspan-8 code">
+          <code>const A = fromEvent(document, 'mousemove');</code>
+          <code></code>
+          <code>A.pipe(take(2))</code>
+          <code>  .subscribe(e => console.log(e.clientX));</code>
+          <code></code>
+          <code> setTimeout(() => {</code>
+          <code>  console.log('timeout');</code>
+          <code>  A.pipe(take(2))</code>
+          <code>    .subscribe(e => console.log(e.clientX));</code>
+          <code> }, 1500);</code>
+        </pre>
+        <h4 class="grid__item grid__item--colspan-4 grid__item--rowstart-1 highlight highlight--inverse">Консоль.</h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">199</span>
+            <span class="code__item">236</span>
+          </div>
+          <div class="js-slide-step">
+            <span class="code__item">timeout</span>
+            <span class="code__item">253</span>
+            <span class="code__item">267</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Красная шапочка отправляет пирожки с помощью RxJS</h3>
+      <div class="grid grid--stretch grid--row-2">
+        <h3 class="grid__item grid__item--colspan-12">
+          Работа с событиями напоминает работу с массивами.
+        </h3>
+        <pre class="grid__item grid__item--colspan-7">
+          <code>fromEvent(phone, 'callFromGrandma').pipe(</code>
+          <code>  bufferTime(500),</code>
+          <code>  filter(hasCallsFromGrandma),</code>
+          <code>  concatMap(calls => of(calls).pipe(</code>
+          <code>    concatMap(bakePies),</code>
+          <code>    concatMap(sendPies),</code>
+          <code>    retry(3),</code>
+          <code>  )),</code>
+          <code>  catchError(orderSushi),</code>
+          <code>).subscribe(grandmaEats);</code>
+        </pre>
+        <div class="code code--counterless grid__item grid__item--colspan-5">
+          <span class="code__item js-slide-step">Создаем Observable</span>
+          <span class="code__item js-slide-step">Объединяем в "партии"</span>
+          <span class="code__item js-slide-step">Проверяем наличие запросов</span>
+          <span class="code__item">&nbsp;</span>
+          <span class="code__item js-slide-step">Печем (асинхронно)</span>
+          <span class="code__item js-slide-step">Отправляем (асинхронно)</span>
+          <span class="code__item js-slide-step">Пересылаем при ошибке</span>
+          <span class="code__item">&nbsp;</span>
+          <span class="code__item js-slide-step">Ошибка - заказ суши</span>
+          <span class="code__item js-slide-step">Успех - еда у бабушки</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Работаем с массивами как с событиями</h4>
+      <div class="grid grid--stretch grid--row-3">
+        <div class="grid__item grid__item--colspan-6 grid grid--stretch grid--col-1 grid--row-2">
+          <p class="grid__item title title--l">
+            Поток.
+          </p>
+          <pre class="grid__item">
+            <code>from([1, 2, 3, 4])</code>
+            <code>  .pipe(</code>
+            <code>    map(x => x*3),</code>
+            <code>    filter(x => x % 2 === 0),</code>
+            <code>    toArray(),</code>
+            <code>  )</code>
+            <code> .subscribe(console.log);</code>
+          </pre>
+        </div>
+        <div class="grid__item grid__item--colspan-6 grid grid--stretch grid--col-1 grid--row-2">
+          <p class="grid__item title title--l">
+            Цепочка операций над масивом.
+          </p>
+          <pre class="grid__item">
+            <code>const data = [1, 2, 3, 4]</code>
+            <code>  .map(x => x*3)</code>
+            <code>  .filter(x => x % 2 === 0);</code>
+            <code>console.log(data);</code>
+            <code></code>
+            <code></code>
+            <code></code>
+          </pre>
+        </div>
+        <p class="grid__item title title--l">
+          Консоль.
+        </p>
+        <div class="grid__item grid__item--colspan-12 code code--counterless">
+          <span class="code__item">[6, 12]</span>
+        </div>
+    </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Особенности цепочки операций над массивом</h3>
+      <div class="grid grid--stretch grid--col-1 grid--row-2">
+        <p class="grid__item title title--l">Каждая операция создает копию.</p>
+        <pre class="grid__item">
+          <code>const data = [1, 2, 3, 4]</code>
+          <code>  // map creates a copy of initial array</code>
+          <code>  .map(x => x*3)</code>
+          <code>  // filter creates a copy of initial array</code>
+          <code>  .filter(x => x % 2 === 0);</code>
+          <code>console.log(data);</code>
+          </pre>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Особенности работы с потоком</h3>
+      <div class="grid grid--stretch grid--row-2">
+        <p class="grid__item grid__item--colspan-8 grid__item--rowstart-1  title title--l">
+          Элемент сразу проходит через все "операции".
+        </p>
+        <pre class="grid__item grid__item--colspan-8">
+          <code>from([1, 2, 3, 4])</code>
+          <code>  .pipe(</code>
+          <code>    tap(console.log),</code>
+          <code>    map(x => x*3),</code>
+          <code>    tap(console.log),</code>
+          <code>    filter(x => x % 2 === 0),</code>
+          <code>    tap(console.log),</code>
+          <code>    toArray(),</code>
+          <code>  )</code>
+          <code> .subscribe(console.log);</code>
+        </pre>
+        <p class="grid__item grid__item--colspan-4 grid__item--rowstart-1  title title--l">
+          Консоль.
+        </p>
+        <div class="grid__item grid__item--colspan-2 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">1</span>
+            <span class="code__item">3</span>
+          </div>
+          <span class="code__item"></span>
+          <div class="js-slide-step">
+            <span class="code__item">2</span>
+            <span class="code__item">6</span>
+            <span class="code__item">6</span>
+          </div>
+          <span class="code__item"></span>
+          <div class="js-slide-step">
+            <span class="code__item">3</span>
+            <span class="code__item">9</span>
+          </div>
+        </div>
+        <div class="grid__item grid__item--colspan-2 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">4</span>
+            <span class="code__item">12</span>
+            <span class="code__item">12</span>
+          </div>
+          <span class="code__item"></span>
+          <div class="js-slide-step">
+            <span class="code__item">[6, 12]</span>
+          </div>
+        </div>
+    </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">RxJS и время</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Все операции над событиями могут быть синхронными либо асинхронными.
+        </p>
+        <div class="grid__item grid__item--colstart-4 arrow arrow--primary arrow--bottom-left"></div>
+        <div class="grid__item grid__item--colstart-9 arrow arrow--primary arrow--bottom-right"></div>
+        <div class="grid__item grid__item--colspan-6 grid grid--stretch grid--row-3">
+          <h4 data-step-order="0" class="js-slide-step grid__item grid__item--text-center grid__item--colspan-12 highlight highlight--inverse">
+            Синхронные
+          </h4>
+          <h5 class="js-slide-step grid__item grid__item--rowstart-2 grid__item--colspan-6 grid__item--text-center highlight highlight--inverse">Создание</h5>
+          <div class="js-slide-step grid__item grid__item--colspan-6 grid grid--col-1 grid--x-center">
+            <ul class="list list--no-bullet list--no-margin-top list--no-margin-bottom">
+              <li>of</li>
+              <li>from</li>
+            </ul>
+          </div>
+          <h5 class="js-slide-step grid__item grid__item--rowstart-2 grid__item--colspan-6 grid__item--text-center highlight highlight--inverse">Операторы</h5>
+          <div class="js-slide-step grid__item grid__item--colspan-6 grid grid--col-1 grid--x-center">
+            <ul class="list list--no-margin-top list--no-margin-bottom list--no-bullet columns columns--2">
+              <li>map</li>
+              <li>filter</li>
+              <li>merge</li>
+              <li>concat</li>
+              <li>pluck</li>
+              <li>count</li>
+              <li>min</li>
+              <li>max</li>
+              <li>reduce</li>
+              <li>scan</li>
+              <li>take</li>
+              <li>skip</li>
+              <li>pairwise</li>
+              <li>switchMap</li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid__item grid__item--colspan-6 grid grid--stretch grid--row-3">
+          <h4 data-step-order="1" class="js-slide-step grid__item grid__item--colspan-12 grid__item--text-center grid__item--text-center highlight highlight--inverse">
+            Асинхронные
+          </h4>
+          <h5 class="js-slide-step grid__item grid__item--rowstart-2 grid__item--colspan-6 grid__item--text-center highlight highlight--inverse">Создание</h5>
+          <div class="js-slide-step grid__item grid__item--colspan-6 grid grid--col-1 grid--x-center">
+            <ul class="list list--no-bullet list--no-margin-top list--no-margin-bottom">
+              <li>interval</li>
+              <li>timer</li>
+              <li>fromPromise</li>
+              <li>fromEvent</li>
+            </ul>
+          </div>
+          <h5 class="js-slide-step grid__item grid__item--rowstart-2 grid__item--colspan-6 grid__item--text-center highlight highlight--inverse">Операторы</h5>
+          <div class="js-slide-step grid__item grid__item--colspan-6 grid grid--col-1 grid--x-center">
+            <ul class="list list--no-bullet list--no-margin-top list--no-margin-bottom">
+              <li>debounce</li>
+              <li>throttle</li>
+              <li>buffer</li>
+              <li>delay</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Отличие синхронных и асинхронных операций</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12">
+          Код, состоящий из сихронных операторов, всегда выполняется последовательно.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 title title--l highlight highlight--inverse">
+          Синхронный Observable.
+        </h4>
+        <pre class="grid__item grid__item--colspan-8">
+          <code>console.log('start');</code>
+          <code>of(1)</code>
+          <code>  .pipe(switchMap(x => of(x*2)))</code>
+          <code>  .subscribe(x => console.log('result', x));</code>
+          <code>console.log('end');</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 title title--l highlight highlight--inverse">
+          Консоль.
+        </h4>
+        <div class="grid__item code code--counterless grid__item--colspan-4">
+          <div class="js-slide-step">
+            <span class="code__item">start</span>
+            <span class="code__item">result 2</span>
+            <span class="code__item">end</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Отличие синхронных и асинхронных операций</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12">
+          Наличие асинхронных операторов всегда приводит к выполнению кода (даже не содержащего реальных асинхронных действий) асинхронно.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 title title--l highlight highlight--inverse">Асинхронный Observable.</h4>
+        <pre class="grid__item grid__item--colspan-8">
+          <code>console.log('start');</code>
+          <code>of(1)</code>
+          <code>  .pipe(switchMap(</code>
+          <code>    x => fromPromise(Promise.resolve(x*2))</code>
+          <code>  ))</code>
+          <code>  .subscribe(x => console.log('result', x));</code>
+          <code>console.log('end');</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 title title--l highlight highlight--inverse">
+          Консоль.
+        </h4>
+        <div class="code code--counterless grid__item grid__item--colspan-4">
+          <div class="js-slide-step">
+            <span class="code__item">start</span>
+            <span class="code__item">end</span>
+            <span class="code__item">result 2</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Сравнение синхронного и асинхронного кода</h3>
+      <div class="grid grid--stretch grid--row-2">
+        <h4 class="grid__item grid__item--rowstart-1 grid__item--colspan-6 title title--l highlight highlight--inverse">Синхронный Observable.</h4>
+
+        <pre class="grid__item grid__item--rowstart-2 grid__item--colspan-6">
+          <code>of(1)</code>
+          <code>  .pipe(switchMap(</code>
+          <code>    x => of(x*2)</code>
+          <code>  ))</code>
+          <code>  .subscribe(x =></code>
+          <code>    console.log('result', x));</code>
+          <code></code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-1 grid__item--colspan-6 title title--l highlight highlight--inverse">Асинхронный Observable.</h4>
+        <pre class="grid__item grid__item--rowstart-2 grid__item--colspan-6">
+          <code>of(1)</code>
+          <code>  .pipe(switchMap(</code>
+          <code>    x => fromPromise(</code>
+          <code>      Promise.resolve(x*2)</code>
+          <code>  )))</code>
+          <code>  .subscribe(x =></code>
+          <code>    console.log('result', x));</code>
+        </pre>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Польза лени</h3>
+      <div class="grid grid--stretch grid--col-1 grid--row-3">
+        <p class="grid__item title title--l">
+          RxJS использует ленивые вычисления: операторы не выполняются, когда у потока нет подписчиков.
+        </p>
+        <p class="highlight highlight--inverse grid__item">
+          Следующий код не вызовет переполнение памяти, т.к. у него нет подписчиков:
+        </p>
+        <pre class="grid__item">
+          <code>range(1, Number.POSITIVE_INFINITY)</code>
+          <code> .pipe(tap(console.log));</code>
+        </pre>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Преимущество ленивых вычислений</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+           Ленивые вычисления дают возможность работать с бесконечными потоками.
+        </p>
+        <h4 class="highlight highlight--inverse grid__item grid__item--rowstart-2 grid__item--colspan-8">
+          Подсчет факториала.
+        </h4>
+        <pre class="grid__item grid__item--colspan-8">
+          <code>range(1, Number.POSITIVE_INFINITY)</code>
+          <code> .pipe(</code>
+          <code>    take(5),</code>
+          <code>    reduce((acc, x) => acc * x, 1),</code>
+          <code>  )</code>
+          <code>  .subscribe(console.log);</code>
+        </pre>
+        <h4 class="highlight highlight--inverse grid__item grid__item--rowstart-2 grid__item--colspan-4">
+           Консоль.
+        </h4>
+        <div class="code code--counterless grid__item grid__item--colspan-4">
+          <div class="js-slide-step">
+            <span class="code__item">120</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Observable-ы и <span class="crossed">тленность бытия</span> время жизни</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Могут быть конечные и бесконечные.
+        </p>
+        <h4 class="js-slide-step grid__item grid__item--rowstart-2 grid__item--colspan-6 highlight highlight--inverse">
+          Сразу завершится.
+        </h4>
+        <pre class="js-slide-step grid__item grid__item--colspan-6">
+          <code>of(1)</code>
+          <code>  .subscribe(</code>
+          <code>    () => console.log('success'),</code>
+          <code>    () => console.log('error'),</code>
+          <code>    () => console.log('completed')</code>
+          <code>  );</code>
+        </pre>
+        <h4 class="js-slide-step grid__item grid__item--rowstart-2 grid__item--colspan-6 highlight highlight--inverse">
+          Будет жить "вечно".
+        </h4>
+        <pre class="js-slide-step grid__item grid__item--colspan-6">
+          <code>fromEvent(document, 'click')</code>
+          <code>  .subscribe(</code>
+          <code>    () => console.log('success'),</code>
+          <code>    () => console.log('error'),</code>
+          <code>    () => console.log('completed')</code>
+          <code>  );</code>
+        </pre>
+        <p class="js-slide-step grid__item grid__item--colspan-12 title title--l">
+          Ошибка сразу завершит Observable, но не вызовет "onCompleted" (<span class="highlight highlight--bright">onCompleted" !== "Finally"</span>).
+        </p>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Завершенность Observable - возможность освободить ресурсы</h3>
+      <div class="grid grid--stretch grid--col-24 grid--row-3 grid--justify-center">
+        <p class="grid__item grid__item--colspan-24 title title--l">
+          Каким образом может завершиться?
+        </p>
+
+        <div class="grid__item grid__item--colstart-6 grid__item--colspan-2 arrow arrow--primary arrow--bottom-left"></div>
+        <div class="grid__item grid__item--colstart-14 grid__item--colspan-2 arrow arrow--primary arrow--bottom"></div>
+        <div class="grid__item grid__item--colstart-20 grid__item--colspan-2 arrow arrow--primary arrow--bottom-right"></div>
+
+        <div class="js-slide-step grid__item grid__item--colspan-8 grid grid--col-1 grid--stretch grid--row-2">
+          <h4 class="grid__item grid__item--text-center highlight highlight--inverse">Конечный набор событий.</h4>
+          <ul class="grid__item grid__item--y-end list list--no-bullet list--marged">
+            <li class="js-slide-step"><pre class="code code--counterless"><code>of('something')</code></pre></li>
+            <li class="js-slide-step"><pre class="code code--counterless"><code>from([1, 2, 3])</code></pre></li>
+            <li class="js-slide-step">
+              <pre class="code code--counterless">
+                <code>fromPromise(promise)</code>
+              </pre>
+            </li>
+          </ul>
+        </div>
+        <div class="js-slide-step grid__item grid__item--colspan-9 grid grid--col-1 grid--stretch grid--row-3">
+          <h4 class="grid__item grid__item--text-center grid__item--text-center highlight highlight--inverse">Ошибка в процессе выполнения. </h4>
+          <p class="grid__item grid__item--text-center highlight highlight--bright">.catchError() не спасет от завершения.</p>
+          <pre class="js-slide-step grid__item grid__item--y-end grid__item--y-start code code--counterless">
+            <code>fromEvent(document,</code>
+            <code>  'click')</code>
+            <code>  .pipe(map(() => {</code>
+            <code>    throw new Error('err');</code>
+            <code>  }));</code>
+          </pre>
+        </div>
+        <div class="js-slide-step grid__item grid__item--colspan-7 grid grid--col-1 grid--stretch grid--row-2">
+          <h4 class="grid__item grid__item--text-center highlight highlight--inverse">Операторы "принудильного завершения".</h4>
+          <div class="grid__item grid grid--col-1 grid--x-center grid--stretch grid--row-1 grid--y-end">
+            <ul class="list list--no-margin-bottom list--no-margin-top">
+              <li class="js-slide-step">first</li>
+              <li class="js-slide-step">take</li>
+              <li class="js-slide-step">takeUntil</li>
+              <li class="js-slide-step">takeWhile</li>
+              <li class="js-slide-step">unsubscribe</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Особенности принудительного завершения. first() !== take(1).</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Оператор take не вызовет ошибку, если к моменту завершения не найдено нужного значения.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 highlight highlight--inverse">take(1) и пустой поток.</h4>
+        <pre class="grid__item grid__item--colspan-8 code code--smaller">
+            <code>empty()</code>
+            <code>  .pipe(take(1))</code>
+            <code>  .subscribe(</code>
+            <code>    () => console.log('ok'),</code>
+            <code>    () => console.log('fail'),</code>
+            <code>    () => console.log('done')</code>
+            <code>  );</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 highlight highlight--inverse">Консоль.</h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">done</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+        <h3 class="title title--xl">Особенности принудительного завершения. first() !== take(1).</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Оператор first вызовет ошибку, если значение не найдено.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 highlight highlight--inverse">first() и пустой поток.</h4>
+        <pre class="grid__item grid__item--colspan-8 code grid__item">
+            <code>empty()</code>
+            <code>  .pipe(first())</code>
+            <code>  .subscribe(</code>
+            <code>    () => console.log('ok'),</code>
+            <code>    () => console.log('fail'),</code>
+            <code>    () => console.log('done')</code>
+            <code>  );</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 highlight highlight--inverse">Консоль.</h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">fail</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Особенности принудительного завершения. first() !== take(1).</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Оператор first дополнительно может принимать параметр-предикат.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 highlight highlight--inverse">first() с предикатом.</h4>
+        <pre class="code grid__item grid__item--colspan-8">
+            <code>from([1, 2, 3])</code>
+            <code>  .pipe(first(x => x > 5))</code>
+            <code>  .subscribe(</code>
+            <code>    () => console.log('ok'),</code>
+            <code>    () => console.log('fail'),</code>
+            <code>    () => console.log('done')</code>
+            <code>  );</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 highlight highlight--inverse">Консоль.</h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">fail</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="content-13 slides__item js-slide">
+      <h3 class="title title--xl">Unsubscribing</h3>
+      <div class="grid grid--y-start grid--col-1">
+        <p class="grid__item title title--l">
+          Не используйте unsubscribe сразу после subscribe.
+        </p>
+        <p class="highlight highlight--inverse">
+          Подписка будет отменена прежде, чем возникнут события.
+        </p>
+        <pre>
+          <code>fromEvent(document, 'click')</code>
+          <code> .subscribe(console.log)</code>
+          <code> .unsubscribe();</code>
+        </pre>
+        <p class="highlight highlight--inverse">
+          Бессмысленно, так как observable конечный и синхронный.
+        </p>
+        <pre>
+          <code>of(100500)</code>
+          <code> .subscribe(console.log)</code>
+          <code> .unsubscribe();</code>
+        </pre>
+      </div>
+    </article>
+
+    <article class="content-13 slides__item js-slide">
+      <h3 class="title title--xl">Unsubscribing</h3>
+      <div class="grid grid--row-2 grid--stretch">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Правильный вариант с .unsubscribe().
+        </p>
+        <pre data-step-class="crossed" class="js-slide-step grid__item grid__item--colspan-6">
+          <code>fromEvent(document, 'click')</code>
+          <code> .subscribe(console.log)</code>
+          <code> .unsubscribe();</code>
+        </pre>
+        <pre class="js-slide-step grid__item grid__item--colspan-6">
+          <code>const customSubscription = </code>
+          <code>  fromEvent(document, 'click')</code>
+          <code>  .subscribe(console.log);</code>
+          <code>...</code>
+          <code>customSubscription.unsubscribe();</code>
+        </pre>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Комбинирование. withLatestFrom, combineLatest, forkJoin.</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          withLatestFrom применяется, когда при получении события надо взять "свежее" значение из другого потока.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 highlight highlight--inverse">
+          Пример работы withLatestFrom.
+        </h4>
+        <pre class="grid__item grid__item--colspan-8 code">
+          <code>const A = new BehaviorSubject(1);</code>
+          <code>const B = new BehaviorSubject('a');</code>
+          <code></code>
+          <code>A.pipe(withLatestFrom(B))</code>
+          <code> .subscribe(console.log);</code>
+          <code></code>
+          <code>A.next(2); B.next('b');</code>
+          <code>A.complete(); B.complete();</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 highlight highlight--inverse">
+          Консоль.
+        </h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">[1, 'a']</span>
+            <span class="code__item">[2, 'a']</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Комбинирование. withLatestFrom, combineLatest, forkJoin.</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          combineLatest применяется, когда необходимо слушать каждое изменение в любом из потоков.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 highlight highlight--inverse">
+          Пример работы combineLatest.
+        </h4>
+        <pre class="grid__item grid__item--colspan-8 code">
+          <code>const A = new BehaviorSubject(1);</code>
+          <code>const B = new BehaviorSubject('a');</code>
+          <code></code>
+          <code>combineLatest(A, B)</code>
+          <code> .subscribe(console.log);</code>
+          <code>// A.pipe(combineLatest(B))</code>
+          <code></code>
+          <code>A.next(2); B.next('b');</code>
+          <code>A.complete(); B.complete();</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 highlight highlight--inverse">
+          Консоль.
+        </h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">[1, 'a']</span>
+            <span class="code__item">[2, 'a']</span>
+            <span class="code__item">[2, 'b']</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Комбинирование. withLatestFrom, combineLatest, forkJoin.</h3>
+      <div class="grid grid--stretch grid--row-3">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          forkJoin применяется, когда необходимо взять последнее значение из каждого потока по их завершении.
+        </p>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-8 highlight highlight--inverse">
+          Пример работы forkJoin.
+        </h4>
+        <pre class="grid__item grid__item--colspan-8 code">
+          <code>const A = new BehaviorSubject(1);</code>
+          <code>const B = new BehaviorSubject('a');</code>
+          <code></code>
+          <code>forkJoin(A, B)</code>
+          <code> .subscribe(console.log);</code>
+          <code></code>
+          <code>A.next(2); B.next('b');</code>
+          <code>A.complete(); B.complete();</code>
+        </pre>
+        <h4 class="grid__item grid__item--rowstart-2 grid__item--colspan-4 highlight highlight--inverse">
+          Консоль.
+        </h4>
+        <div class="grid__item grid__item--colspan-4 code code--counterless">
+          <div class="js-slide-step">
+            <span class="code__item">[2, 'b']</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Неочевидные зависимости</h3>
+      <div class="grid grid--y-start">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Порядок может иметь значение для алгоритмов применения изменений.
+        </p>
+        <pre class="grid__item grid__item--colspan-12 code code--smaller columns columns--2">
+          <code>const A = new BehaviorSubject(1);</code>
+          <code>const B = new Subject();</code>
+          <code> </code>
+          <code>A.asObservable()</code>
+          <code> .subscribe((val) => {</code>
+          <code>   console.log('A value is ', val);</code>
+          <code>   B.next(val * 10);</code>
+          <code>});</code>
+          <code></code>
+          <code>B.asObservable().pipe(</code>
+          <code class="marked">  withLatestFrom(A.asObservable())</code>
+          <code>).subscribe(([bVal, aVal]) => {</code>
+          <code> console.log(`A is ${aVal}; B is ${bVal}`);</code>
+          <code>});</code>
+          <code></code>
+          <code>setTimeout(() => A.next(2));</code>
+          <code></code>
+          <code></code>
+        </pre>
+        <div class="code code--counterless grid__item grid__item--colspan-12">
+          <div class="js-slide-step columns columns--2">
+            <span class="code__item">A value is  1</span>
+            <span class="code__item">A value is  2</span>
+            <span class="code__item"><span class="highlight highlight--bright">A is 1;</span> B is 20</span>
+            <span class="code__item">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Асинхронность</h3>
+      <div class="grid grid--y-start">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Внесение асинхронности изменяет значения в потоках.
+        </p>
+        <pre class="grid__item grid__item--colspan-12 code code--smaller columns columns--2">
+          <code>const A = new BehaviorSubject(1);</code>
+          <code>const B = new Subject();</code>
+          <code> </code>
+          <code>A.asObservable()</code>
+          <code> .subscribe((val) => {</code>
+          <code>   console.log('A value is ', val);</code>
+          <code>   B.next(val * 10);</code>
+          <code>});</code>
+          <code></code>
+          <code>B.asObservable().pipe(</code>
+          <code class="marked"> debounceTime(0),</code>
+          <code>  withLatestFrom(A.asObservable()),</code>
+          <code>).subscribe(([bVal, aVal]) => {</code>
+          <code> console.log(`A is ${aVal}; B is ${bVal}`);</code>
+          <code>});</code>
+          <code></code>
+          <code>setTimeout(() => A.next(2));</code>
+          <code></code>
+        </pre>
+        <div class="code code--counterless grid__item grid__item--colspan-12">
+          <div class="js-slide-step columns columns--2">
+            <span class="code__item">A value is  1</span>
+            <span class="code__item">A value is  2</span>
+            <span class="code__item"><span class="highlight highlight--bright">A is 2;</span> B is 20</span>
+            <span class="code__item">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Изменение порядка</h3>
+      <div class="grid grid--y-start">
+        <p class="grid__item grid__item--colspan-12 title title--l">
+          Меняя местами подписки, мы также меняем значение в потоках.
+        </p>
+        <pre class="grid__item grid__item--colspan-12 code code--smaller columns columns--2">
+          <code>const A = new BehaviorSubject(1);</code>
+          <code>const B = new Subject();</code>
+          <code> </code>
+          <code class="marked">B.asObservable().pipe(</code>
+          <code>    withLatestFrom(A.asObservable())</code>
+          <code>).subscribe(([bVal, aVal]) => {</code>
+          <code> console.log(`A is ${aVal}; B is ${bVal}`);</code>
+          <code>});</code>
+          <code></code>
+          <code class="marked">A.asObservable()</code>
+          <code> .subscribe((val) => {</code>
+          <code>   console.log('A value is ', val);</code>
+          <code>   B.next(val * 10);</code>
+          <code>});</code>
+          <code></code>
+          <code>setTimeout(() => A.next(2));</code>
+          <code></code>
+          <code></code>
+        </pre>
+        <div class="code code--counterless grid__item grid__item--colspan-12">
+          <div class="js-slide-step columns columns--2">
+            <span class="code__item">A value is  1</span>
+            <span class="code__item"><span class="highlight highlight--bright">A is 1;</span> B is 10</span>
+            <span class="code__item">A value is  2</span>
+            <span class="code__item"><span class="highlight highlight--bright">A is 2;</span> B is 20</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="content-standards slides__item js-slide">
+      <h3 class="title title--xl">Стандарты</h3>
+      <div class="grid grid--col-1 grid--stretch grid--row-2">
+        <ul>
+            <li><strong class="highlight highlight--inverse">Angular 2+</strong> - интегрирован с observable;</li>
+          <li><strong class="highlight highlight--inverse">T38 Observable Spec</strong> - Stage 1 Proposal;</li>
+          <li><strong class="highlight highlight--inverse">RxJS 5</strong> - максимально приближена к спеке;</li>
+          <li><strong class="highlight highlight--inverse">RxJS 6</strong> - релиз в апреле 2018;</li>
+          <li><strong class="highlight highlight--inverse">RxJS 6</strong> - <span class="crossed">chaining operators</span> => pipe syntax.</li>
+        </ul>
+        <div class="grid__item">
+          <div class="content-standards__wolf">
+            <img class="graphic content-standards__pie" src="dist/assets/pie.png" alt="Пирожок">
+            <img class="graphic" src="dist/assets/wolf.png" alt="Волк">
+            <img class="graphic content-standards__pie-2" src="dist/assets/pie.png" alt="Пирожок">
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="slides__item js-slide">
+      <h3 class="title title--xl">Полезные ссылки</h3>
+      <div class="grid grid--y-center">
+        <ul class="grid__item grid__item--colspan-6 list list--inverse">
+          <li><a target="_blank" href="http://reactivex.io/rxjs/">RXJS Documentation</a>;</li>
+          <li><a target="blank" href="http://rxmarbles.com/">RxJsMarbles</a>;</li>
+          <li><a href="https://rxviz.com/">RxJS Visualiser</a></li>
+          <li><a target="blank" href="https://github.com/RxJSInAction">Paul P. Daniels, Luis Atencio, RxJS In Action</a>;</li>
+          <li><a target="_blank" href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754">The introduction to Reactive programming you've been missing</a>;</li>
+          <li><a target="_blank" href="https://github.com/tc39/proposal-observable">Observable proposal</a>;</li>
+          <li><a target="_blank" href="https://medium.com/@luijar/the-observable-disguised-as-an-io-monad-c89042aa8f31">The Observable disguised as an IO Monad</a>;</li>
+          <li><a target="_blank" href="https://github.com/fr-ench/rxjs-presentation">Slides at Github</a>.</li>
+        </ul>
+
+        <div class="grid__item grid__item--text-center grid__item--colspan-6">
+          <img
+            src="dist/assets/qr-code.png"
+            alt="QR code with link to current presentation"/>
+        </div>
+
+      </div>
+    </article>
+
+    <aside class="slides-loader"></aside>
+  </section>
+  </main>
+  <script src="dist/app.js"></script>
+</body>
+</html>

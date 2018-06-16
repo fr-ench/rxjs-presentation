@@ -1,0 +1,61 @@
+@keyframes wolfWalking {
+  0% {
+    transform: rotate(0);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes pieEaten {
+  0% {
+    transform: rotate(45deg);
+  }
+  60% {
+    transform: rotate(60deg);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes pieOnWolf {
+  0% {
+    transform: rotate(0deg);
+  }
+  60% {
+    transform: translate(0, -0.1vw) rotate(1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.content-standards {
+  &__wolf {
+    width: 40vw;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    animation: wolfWalking 3s infinite;
+    transform: translate(0,0);
+  }
+  &__pie {
+    width: 6vw;
+    position: absolute;
+    right: 30vw;
+    bottom: 5.5vw;
+    animation: pieEaten 3s infinite;
+    transform: rotate(45deg);
+  }
+  &__pie-2 {
+    width: 5vw;
+    position: absolute;
+    right: 15vw;
+    bottom: 12vw;
+    animation: pieOnWolf 3s infinite;
+  }
+}

@@ -1,0 +1,237 @@
+.grid {
+  display: grid;
+  grid-row-gap: 20px;
+  grid-column-gap: var(--columngap, 40px);
+  grid-template-columns: repeat(var(--cols, 12), minmax(0, 1fr));
+  grid-template-rows: repeat(calc(var(--rows, 1)), auto);
+  grid-auto-rows: auto;
+
+  &--text-center {
+    text-align: center;
+  }
+
+  &--stretch {
+    grid-template-rows: repeat(calc(var(--rows, 1) - 1), auto) 1fr;
+  }
+
+  &--y-start {
+    align-content: start;
+  }
+
+  &--y-center {
+    align-content: center;
+  }
+
+  &--y-end {
+    align-content: end;
+  }
+
+  &--x-center {
+    justify-items: center;
+  }
+
+  &--columngap {
+    &-xs {
+      --columngap: 0;
+    }
+    &-s {
+      --columngap: 5px;
+    }
+    &-m {
+      --columngap: 20px;
+    }
+    &-l {
+      --columngap: 40px;
+    }
+  }
+
+  &--col {
+    &-1 {
+      --cols: 1;
+    }
+    &-6 {
+      --cols: 6;
+    }
+    &-12 {
+      --cols: 12;
+    }
+    &-24 {
+      --cols: 24;
+    }
+  }
+
+  &--row {
+    &-1 {
+      --rows: 1;
+    }
+    &-2 {
+      --rows: 2;
+    }
+    &-3 {
+      --rows: 3;
+    }
+    &-4 {
+      --rows: 4;
+    }
+    &-5 {
+      --rows: 5;
+    }
+  }
+}
+
+.grid__item {
+  --colspan: 1;
+  --rowspan: 1;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  grid-column: var(--colstart, auto) / span var(--colspan, 1);
+  grid-row: var(--rowstart, auto) /span var(--rowspan, 1);
+  position: relative;
+
+  &--inline {
+    width: auto;
+  }
+
+  &--text-center {
+    text-align: center;
+  }
+
+  &--y {
+    &-start {
+      align-self: start;
+    }
+    &-center {
+      align-self: center;
+    }
+    &-stretch {
+      align-self: stretch;
+    }
+    &-end {
+      align-self: end;
+    }
+  }
+
+  &--colspan {
+    &-2 {
+      --colspan: 2;
+    }
+    &-3 {
+      --colspan: 3;
+    }
+    &-4 {
+      --colspan: 4;
+    }
+    &-5 {
+      --colspan: 5;
+    }
+    &-6 {
+      --colspan: 6;
+    }
+    &-7 {
+      --colspan: 7;
+    }
+    &-8 {
+      --colspan: 8;
+    }
+    &-9 {
+      --colspan: 9;
+    }
+    &-10 {
+      --colspan: 10;
+    }
+    &-11 {
+      --colspan: 11;
+    }
+    &-12 {
+      --colspan: 12;
+    }
+    &-24 {
+      --colspan: 24;
+    }
+  }
+
+  &--rowspan {
+    &-1 {
+      --rowspan: 1;
+    }
+    &-2 {
+      --rowspan: 2;
+    }
+    &-3 {
+      --rowspan: 3;
+    }
+    &-4 {
+      --rowspan: 4;
+    }
+    &-5 {
+      --rowspan: 5;
+    }
+  }
+
+  &--colstart {
+    &-1 {
+      --colstart: 1;
+    }
+    &-2 {
+      --colstart: 2;
+    }
+    &-3 {
+      --colstart: 3;
+    }
+    &-4 {
+      --colstart: 4;
+    }
+    &-5 {
+      --colstart: 5;
+    }
+    &-6 {
+      --colstart: 6;
+    }
+    &-7 {
+      --colstart: 7;
+    }
+    &-8 {
+      --colstart: 8;
+    }
+    &-9 {
+      --colstart: 9;
+    }
+    &-10 {
+      --colstart: 10;
+    }
+    &-11 {
+      --colstart: 11;
+    }
+    &-14 {
+      --colstart: 14;
+    }
+    &-16 {
+      --colstart: 16;
+    }
+    &-18 {
+      --colstart: 18;
+    }
+    &-20 {
+      --colstart: 20;
+    }
+  }
+
+  &--rowstart {
+    &-1 {
+      --rowstart: 1;
+    }
+    &-2 {
+      --rowstart: 2;
+    }
+    &-3 {
+      --rowstart: 3;
+    }
+    &-4 {
+      --rowstart: 4;
+    }
+    &-5 {
+      --rowstart: 5;
+    }
+  }
+}

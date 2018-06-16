@@ -1,0 +1,29 @@
+.list {
+  &--no-margin-top {
+    margin-top: 0;
+  }
+  &--no-margin-bottom {
+    margin-bottom: 0;
+  }
+  &--small-margin-top {
+    margin-top: 0.5em;
+  }
+  &--small-margin-bottom {
+    margin-bottom: 0.5em;
+  }
+  &--marged {
+    & li {
+      margin-bottom: 1rem;
+    }
+    & li:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &--no-bullet {
+    list-style: none;
+    padding-left: 0;
+  }
+  &--inverse {
+    color: var(--black);
+  }
+}

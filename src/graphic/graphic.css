@@ -1,0 +1,29 @@
+.graphic {
+  display: inline-block;
+  vertical-align: baseline;
+  position: relative;
+  object-fit: contain;
+  height: auto;
+  max-width: 100%;
+  width: auto;
+  margin: 0 auto;
+
+  &--reflect-x {
+    transform: rotateY(180deg);
+  }
+  &--reflect-y {
+    transform: rotateX(180deg);
+  }
+  &--scale-s {
+    transform: scale(0.8);
+  }
+}
+
+.graphic--absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 100%;
+}

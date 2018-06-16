@@ -1,0 +1,59 @@
+@keyframes tilting {
+  0% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+@keyframes jumping {
+  0% {
+    transform: rotate(10deg) translateY(0);
+  }
+  50% {
+    transform: rotate(0deg) translateY(10px);
+  }
+}
+@keyframes jumping2 {
+  0% {
+    transform: scale(0.6) rotate(-15deg) translateY(0);
+  }
+  50% {
+    transform: scale(0.6) rotate(0deg) translateY(25px);
+  }
+}
+@keyframes jumping3 {
+  0% {
+    transform: scale(0.8) rotateY(180deg) rotate(-10deg) translateY(-5px);
+  }
+  50% {
+    transform: scale(0.8) rotateY(180deg) rotate(0deg) translateY(15px);
+  }
+}
+
+.content-definition {
+  &__text-img {
+    margin: 0 1em;
+    &--ridinghood {
+      max-width: 4rem;
+      animation: tilting 4s infinite;
+      transform: rotate(-5deg);
+    }
+    &--pie {
+      max-width: 7rem;
+      animation: jumping 3s infinite;
+      transform: rotate(10deg);
+    }
+    &--pie-2 {
+      max-width: 7rem;
+      animation: jumping2 3s infinite;
+      transform: scale(0.6) rotate(-15deg);
+    }
+    &--pie-3 {
+      max-width: 7rem;
+      animation: jumping3 3s infinite;
+      transform: scale(0.8) rotateY(180deg) rotate(-10deg) translateY(-5px);
+    }
+  }
+}
+

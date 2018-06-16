@@ -1,0 +1,8 @@
+.content-front {
+  &__me {
+    width: 30vh;
+    height: 30vh;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}

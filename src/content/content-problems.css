@@ -1,0 +1,33 @@
+@keyframes pierunning {
+  0% {
+    transform:translateX(100%) rotate(0deg);
+    opacity: 0;
+  }
+  35% {
+    transform:translateX(100%) rotate(0deg);
+    opacity: 0;
+  }
+  40% {
+    transform:translateX(100%) rotate(0deg);
+    opacity: 1;
+  }
+  56% {
+    transform: translateX(600%) rotate(360deg);
+  }
+  62% {
+    transform: translateX(600%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.content-problems {
+  &__img {
+    &--pie {
+      max-width: 7rem;
+      animation: pierunning 10s infinite;
+      transform:translateX(100%);
+      opacity: 0;
+    }
+  }
+}
+
