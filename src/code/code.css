@@ -14,7 +14,7 @@ pre, .code {
   &:not(.code--counterless) {
     padding-left: 0.5em;
     & code,
-    &.code__item {
+    & .code__item:not(.code__item--counterless) {
       counter-increment: code;
 
       &:before {

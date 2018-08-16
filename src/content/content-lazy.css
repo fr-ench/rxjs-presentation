@@ -1,0 +1,8 @@
+.content-lazy {
+  &__pie {
+    max-width: 15vw;
+    position: absolute;
+    right: 5vw;
+    bottom: 5vh;
+  }
+}
